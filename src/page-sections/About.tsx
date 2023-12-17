@@ -48,7 +48,7 @@ const About = () => {
 export default About;
 
 const Wrapper = styled.div`
-  margin: 0 auto;
+  margin-top: 300px;
 `;
 
 const SectionTitleContainer = styled.div`
@@ -74,6 +74,7 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   line-height: normal;
   position: relative;
+  text-transform: uppercase;
 `;
 
 const ImageTextWrapper = styled.div`
@@ -102,11 +103,26 @@ const MapSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+
+  &::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 575px;
+    overflow: hidden;
+    transform: rotate(180deg);
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #141414 0%, rgba(20, 20, 20, 0) 100%);
+  }
 `;
 
 const InnerContainer = styled.div`
   width: 80%;
   margin: 0 auto;
+  z-index: 999;
 
   p {
     color: #fff;
