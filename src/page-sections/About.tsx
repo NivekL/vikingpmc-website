@@ -1,5 +1,5 @@
-import React from "react";
-import { styled } from "styled-components/macro";
+import React from 'react';
+import { styled } from 'styled-components/macro';
 
 const About = () => {
   return (
@@ -28,7 +28,7 @@ const About = () => {
         <InnerContainer>
           <BlockQuote>
             <h2>
-              Viking operators are prepared to fight in <br />{" "}
+              Viking operators are prepared to fight in <br />{' '}
               <span>any condition </span> at <span> any time</span>
             </h2>
           </BlockQuote>
@@ -49,6 +49,10 @@ export default About;
 
 const Wrapper = styled.div`
   margin-top: 300px;
+
+  @media screen and (min-width: 320px) {
+    margin-top: 70px;
+  }
 `;
 
 const SectionTitleContainer = styled.div`
@@ -57,6 +61,10 @@ const SectionTitleContainer = styled.div`
   margin-top: 70px;
   max-width: 80%;
   margin: 0 auto;
+
+  @media screen and (min-width: 320px) {
+    max-width: 90%;
+  }
 `;
 
 const TitleLine = styled.hr`
@@ -64,17 +72,26 @@ const TitleLine = styled.hr`
   height: 1px;
   margin: 0 43px 0 0;
   background: #7ef0b3;
+
+  @media screen and (min-width: 320px) {
+    width: 60px;
+    margin: 0 23px 0 0;
+  }
 `;
 
 const SectionTitle = styled.h2`
   color: #fff;
-  font-family: "Assistant", sans-serif;
+  font-family: 'Assistant', sans-serif;
   font-size: 96px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   position: relative;
   text-transform: uppercase;
+
+  @media screen and (min-width: 320px) {
+    font-size: 3em;
+  }
 `;
 
 const ImageTextWrapper = styled.div`
@@ -82,19 +99,46 @@ const ImageTextWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   max-width: 80%;
+
+  img {
+    max-width: 100%;
+
+    @media screen and (min-width: 1024px) {
+      max-width: 90%;
+    }
+  }
+
+  @media screen and (min-width: 320px) {
+    flex-direction: column;
+  }
 `;
 
 const TextContainer = styled.div`
   transform: translate(-50%, 50%);
   max-width: 45rem;
+
   p {
     font-size: 40px;
     line-height: 60px;
+
+    @media screen and (min-width: 320px) {
+      font-size: 1.2em;
+      line-height: 32px;
+    }
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.5em;
+      line-height: 32px;
+    }
+  }
+
+  @media screen and (min-width: 320px) {
+    transform: none;
   }
 `;
 
 const MapSection = styled.div`
-  background-image: url("/assets/gradientmap.png");
+  background-image: url('/assets/gradientmap.png');
   width: 100%;
   height: 785px;
   background-size: cover;
@@ -106,7 +150,7 @@ const MapSection = styled.div`
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -116,6 +160,10 @@ const MapSection = styled.div`
     transform: rotate(180deg);
     flex-shrink: 0;
     background: linear-gradient(180deg, #141414 0%, rgba(20, 20, 20, 0) 100%);
+  }
+
+  @media screen and (min-width: 320px) {
+    margin-top: 100px;
   }
 `;
 
@@ -130,8 +178,14 @@ const InnerContainer = styled.div`
     font-size: 35px;
     font-style: normal;
     font-weight: 400;
-    line-height: 136.188%;
+    line-height: 32px;
     width: 75%;
+
+    @media screen and (min-width: 320px) {
+      font-size: 1.3em;
+      line-height: 32px;
+      width: 95%;
+    }
   }
 `;
 
@@ -146,10 +200,20 @@ const BlockQuote = styled.div`
     font-weight: 700;
     line-height: normal;
     padding-left: 40px;
+
+    @media screen and (min-width: 320px) {
+      font-size: 1.8em;
+      padding-left: 25px;
+    }
   }
 
   span {
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1.4px #7ef0b3;
+  }
+
+  @media screen and (min-width: 320px) {
+    width: 100%;
+    margin-bottom: 60px;
   }
 `;
