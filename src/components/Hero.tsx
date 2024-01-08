@@ -1,14 +1,91 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components/macro';
+import { motion, useAnimationControls } from 'framer-motion';
 
 const Hero = () => {
+  const controls = useAnimationControls();
+
+  const words =
+    '(PMC) provides armed combat or security services for financial gain.'.split(
+      ' '
+    );
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.03, delayChildren: 0.08 * i },
+    }),
+  };
+
+  const child = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      rotate: 5,
+      transition: {
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    textVisible: {
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      transition: {
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
+
+  const greenTextVariants = {
+    hidden: { opacity: 0 },
+    GreenVisible: {
+      opacity: 1,
+      transition: { duration: 1 },
+    },
+  };
+
+  useEffect(() => {
+    const sequence = () => {
+      controls.start('GreenVisible'); // Start the container animation on mount
+      controls.start('textVisible');
+    };
+
+    sequence();
+  }, [controls]);
+
   return (
     <HeroContainer>
       <HeroImage>
-        <h1>
-          A <span>private military company</span> (PMC) provides armed combat or
-          security services for financial gain.{' '}
-        </h1>
+        <motion.h1 variants={container} initial="hidden" animate="visible">
+          <GreenText
+            variants={greenTextVariants}
+            initial="hidden"
+            animate={controls}
+            custom={0}
+          >
+            A private military company
+          </GreenText>
+          {words.map((word, index) => {
+            return (
+              <motion.span
+                variants={child}
+                key={index}
+                custom={1}
+                initial="hidden"
+                animate={controls}
+                style={{
+                  marginRight: '6px',
+                  display: 'inline-block',
+                }}
+              >
+                {word}
+              </motion.span>
+            );
+          })}
+        </motion.h1>
       </HeroImage>
     </HeroContainer>
   );
@@ -71,9 +148,10 @@ const HeroImage = styled.div`
       width: 50%;
     }
   }
+`;
 
-  span {
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.4px #7ef0b3;
-  }
+const GreenText = styled(motion.span)`
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.4px #7ef0b3;
+  margin-right: 6px;
 `;
