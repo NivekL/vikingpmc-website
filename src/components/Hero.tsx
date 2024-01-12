@@ -3,7 +3,7 @@ import { styled } from 'styled-components/macro';
 import { motion, useAnimationControls } from 'framer-motion';
 
 const Hero = () => {
-  const controls = useAnimationControls();
+  // const controls = useAnimationControls();
 
   const words =
     '(PMC) provides armed combat or security services for financial gain.'.split(
@@ -14,26 +14,26 @@ const Hero = () => {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.03, delayChildren: 0.08 * i },
+      transition: { staggerChildren: 0.04, delayChildren: 0.02 * i },
     }),
   };
 
   const child = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-      rotate: 5,
+    visible: {
+      opacity: 1,
+      y: 0,
       transition: {
-        damping: 12,
+        ease: 'easeInOut',
+        duration: 0.7,
+        damping: 20,
         stiffness: 100,
       },
     },
-    textVisible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
+    hidden: {
+      opacity: 0,
+      y: 40,
       transition: {
-        damping: 12,
+        damping: 20,
         stiffness: 100,
       },
     },
@@ -43,18 +43,18 @@ const Hero = () => {
     hidden: { opacity: 0 },
     GreenVisible: {
       opacity: 1,
-      transition: { duration: 1 },
+      transition: { duration: 1, delay: 0.5 },
     },
   };
 
-  useEffect(() => {
-    const sequence = () => {
-      controls.start('GreenVisible'); // Start the container animation on mount
-      controls.start('textVisible');
-    };
+  // useEffect(() => {
+  //   const sequence = () => {
+  //     controls.start('GreenVisible'); // Start the container animation on mount
+  //     controls.start('textVisible');
+  //   };
 
-    sequence();
-  }, [controls]);
+  //   sequence();
+  // }, [controls]);
 
   return (
     <HeroContainer>
@@ -63,8 +63,7 @@ const Hero = () => {
           <GreenText
             variants={greenTextVariants}
             initial="hidden"
-            animate={controls}
-            custom={0}
+            animate="GreenVisible"
           >
             A private military company
           </GreenText>
@@ -72,16 +71,26 @@ const Hero = () => {
             return (
               <motion.span
                 variants={child}
-                key={index}
-                custom={1}
-                initial="hidden"
-                animate={controls}
                 style={{
-                  marginRight: '6px',
+                  overflow: 'hidden',
                   display: 'inline-block',
+                  verticalAlign: 'bottom',
+                  transform: 'none',
                 }}
               >
-                {word}
+                <motion.span
+                  variants={child}
+                  key={index}
+                  // custom={1}
+                  // initial="hidden"
+                  // animate={controls}
+                  style={{
+                    marginRight: '6px',
+                    display: 'inline-block',
+                  }}
+                >
+                  {word}
+                </motion.span>
               </motion.span>
             );
           })}

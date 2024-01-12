@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { styled } from 'styled-components/macro';
+import { useScroll, motion, useTransform, MotionValue } from 'framer-motion';
 
 const About = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref });
+
+  function useParallax(value: MotionValue<number>, distance: number) {
+    return useTransform(value, [0, 1], [-250, -60]);
+  }
+
+  const y = useParallax(scrollYProgress, 100);
+
   return (
     <Wrapper>
       <SectionTitleContainer>
@@ -10,11 +20,12 @@ const About = () => {
       </SectionTitleContainer>
 
       <ImageTextWrapper>
-        <img
+        <motion.img
+          ref={ref}
           src="/assets/arma-image.png"
           alt="A group of soldiers in a field"
         />
-        <TextContainer>
+        <TextContainer style={{ y }}>
           <p>
             In 2014 a group of individuals decided that they were tired of the
             poor command and structure of the official armed forces groups in
@@ -113,7 +124,7 @@ const ImageTextWrapper = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled(motion.div)`
   transform: translate(-50%, 50%);
   max-width: 45rem;
 
