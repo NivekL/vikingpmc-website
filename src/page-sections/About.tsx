@@ -1,16 +1,25 @@
 import React, { useRef } from 'react';
 import { styled } from 'styled-components/macro';
-import { useScroll, motion, useTransform, MotionValue } from 'framer-motion';
+import {
+  useScroll,
+  motion,
+  useTransform,
+  easeOut,
+  easeInOut,
+} from 'framer-motion';
 
 const About = () => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'start end'],
+  });
 
-  function useParallax(value: MotionValue<number>, distance: number) {
-    return useTransform(value, [0, 1], [-250, -60]);
-  }
-
-  const y = useParallax(scrollYProgress, 100);
+  // Parallax effect for the text (moves up)
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['-80%', '50%'], {
+    ease: easeInOut,
+  });
 
   return (
     <Wrapper>
@@ -19,21 +28,23 @@ const About = () => {
         <SectionTitle>About us</SectionTitle>
       </SectionTitleContainer>
 
-      <ImageTextWrapper>
-        <motion.img
-          ref={ref}
-          src="/assets/arma-image.png"
-          alt="A group of soldiers in a field"
-        />
-        <TextContainer style={{ y }}>
-          <p>
-            In 2014 a group of individuals decided that they were tired of the
-            poor command and structure of the official armed forces groups in
-            the ArmA community. Today VIKING PMC is one of the most well-known
-            units out there.
-          </p>
-        </TextContainer>
-      </ImageTextWrapper>
+      <div ref={ref}>
+        <ImageTextWrapper>
+          <motion.img
+            style={{ y: imageY }}
+            src="/assets/arma-image.png"
+            alt="A group of soldiers in a field"
+          />
+          <TextContainer style={{ y: textY }}>
+            <p>
+              In 2014 a group of individuals decided that they were tired of the
+              poor command and structure of the official armed forces groups in
+              the ArmA community. Today VIKING PMC is one of the most well-known
+              units out there.
+            </p>
+          </TextContainer>
+        </ImageTextWrapper>
+      </div>
 
       <MapSection>
         <InnerContainer>
