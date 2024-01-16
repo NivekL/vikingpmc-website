@@ -1,12 +1,6 @@
 import React, { useRef } from 'react';
 import { styled } from 'styled-components/macro';
-import {
-  useScroll,
-  motion,
-  useTransform,
-  easeOut,
-  easeInOut,
-} from 'framer-motion';
+import { useScroll, motion, useTransform, useSpring } from 'framer-motion';
 
 const About = () => {
   const ref = useRef(null);
@@ -14,12 +8,15 @@ const About = () => {
     target: ref,
     offset: ['start start', 'start end'],
   });
+  const springX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   // Parallax effect for the text (moves up)
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['-80%', '50%'], {
-    ease: easeInOut,
-  });
+  const imageY = useTransform(springX, [0, 1], ['0%', '-8%']);
+  const textY = useTransform(springX, [0, 1], ['-80%', '80%']);
 
   return (
     <Wrapper>
