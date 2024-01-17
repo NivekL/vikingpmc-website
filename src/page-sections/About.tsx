@@ -16,7 +16,7 @@ const About = () => {
 
   // Parallax effect for the text (moves up)
   const imageY = useTransform(springX, [0, 1], ['0%', '-8%']);
-  const textY = useTransform(springX, [0, 1], ['-80%', '80%']);
+  const textY = useTransform(springX, [0, 1], ['-60%', '0%']);
 
   return (
     <Wrapper>
@@ -32,7 +32,7 @@ const About = () => {
             src="/assets/arma-image.png"
             alt="A group of soldiers in a field"
           />
-          <TextContainer style={{ y: textY }}>
+          <TextContainer className="mobileStyle" style={{ y: textY }}>
             <p>
               In 2014 a group of individuals decided that they were tired of the
               poor command and structure of the official armed forces groups in
@@ -121,20 +121,23 @@ const ImageTextWrapper = styled.div`
 
   img {
     max-width: 100%;
-
-    @media screen and (min-width: 1024px) {
-      max-width: 90%;
-    }
   }
 
   @media screen and (min-width: 320px) {
     flex-direction: column;
   }
+
+  @media screen and (min-width: 1024px) {
+    max-width: 90%;
+  }
 `;
 
 const TextContainer = styled(motion.div)`
-  transform: translate(-50%, 50%);
-  max-width: 45rem;
+  max-width: 32rem;
+
+  @media screen and (min-width: 1200px) {
+    transform: translateX(50%);
+  }
 
   p {
     font-size: 40px;
@@ -191,6 +194,10 @@ const InnerContainer = styled.div`
   margin: 0 auto;
   z-index: 999;
 
+  @media screen and (min-width: 1200px) {
+    width: 70%;
+  }
+
   p {
     color: #fff;
     font-family: Roboto;
@@ -202,6 +209,12 @@ const InnerContainer = styled.div`
 
     @media screen and (min-width: 320px) {
       font-size: 1.3em;
+      line-height: 32px;
+      width: 95%;
+    }
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.5em;
       line-height: 32px;
       width: 95%;
     }
@@ -224,6 +237,21 @@ const BlockQuote = styled.div`
       font-size: 1.8em;
       padding-left: 25px;
     }
+
+    @media screen and (min-width: 768px) {
+      font-size: 2.5em;
+      padding-left: 25px;
+    }
+
+    @media screen and (min-width: 1024px) {
+      font-size: 3em;
+      padding-left: 25px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 3.5em;
+      padding-left: 25px;
+    }
   }
 
   span {
@@ -233,6 +261,15 @@ const BlockQuote = styled.div`
 
   @media screen and (min-width: 320px) {
     width: 100%;
+    margin-bottom: 60px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 70%;
+    margin-bottom: 60px;
+  }
+  @media screen and (min-width: 1200px) {
+    width: 60%;
     margin-bottom: 60px;
   }
 `;
