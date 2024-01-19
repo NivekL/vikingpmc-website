@@ -18,6 +18,50 @@ const About = () => {
   const imageY = useTransform(springX, [0, 1], ['0%', '-8%']);
   const textY = useTransform(springX, [0, 1], ['-60%', '0%']);
 
+  /* BLOCK QUOTE ANIMATION VARIANTS */
+
+  const words =
+    'Viking operators are prepared to fight in any condition at any time'.split(
+      ' '
+    );
+
+  const container = {
+    hidden: { opacity: 0, x: '-80%' },
+    visible: (i = 1) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        staggerChildren: 0.03,
+        delayChildren: 0.02 * i,
+        ease: 'easeOut',
+        duration: 1,
+        damping: 20,
+        stiffness: 50,
+      },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        ease: 'easeOut',
+        duration: 0.8,
+        damping: 20,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      x: '-80%',
+      transition: {
+        damping: 20,
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
     <Wrapper>
       <SectionTitleContainer>
@@ -46,10 +90,27 @@ const About = () => {
       <MapSection>
         <InnerContainer>
           <BlockQuote>
-            <h2>
-              Viking operators are prepared to fight in <br />{' '}
-              <span>any condition </span> at <span> any time</span>
-            </h2>
+            <motion.h2
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={container}
+              initial="hidden"
+            >
+              {words.map((word, index) => {
+                return (
+                  <motion.span
+                    variants={child}
+                    key={index}
+                    style={{
+                      marginRight: '6px',
+                      display: 'inline-block',
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                );
+              })}
+            </motion.h2>
           </BlockQuote>
 
           <p>
@@ -96,12 +157,16 @@ const TitleLine = styled.hr`
     width: 60px;
     margin: 0 23px 0 0;
   }
+
+  @media screen and (min-width: 768px) {
+    width: 80px;
+    margin: 0 33px 0 0;
+  }
 `;
 
 const SectionTitle = styled.h2`
   color: #fff;
   font-family: 'Assistant', sans-serif;
-  font-size: 96px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -110,6 +175,10 @@ const SectionTitle = styled.h2`
 
   @media screen and (min-width: 320px) {
     font-size: 3em;
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: 3.5em;
   }
 `;
 
@@ -224,6 +293,7 @@ const InnerContainer = styled.div`
 const BlockQuote = styled.div`
   width: 55%;
   border-left: 1px solid #7ef0b3;
+  overflow: hidden;
   h2 {
     color: #fff;
     font-family: Assistant;
@@ -254,11 +324,6 @@ const BlockQuote = styled.div`
     }
   }
 
-  span {
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.4px #7ef0b3;
-  }
-
   @media screen and (min-width: 320px) {
     width: 100%;
     margin-bottom: 60px;
@@ -272,4 +337,9 @@ const BlockQuote = styled.div`
     width: 60%;
     margin-bottom: 60px;
   }
+`;
+
+const GreenText = styled(motion.span)`
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.4px #7ef0b3;
 `;
